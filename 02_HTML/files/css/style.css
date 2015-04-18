@@ -47,3 +47,14 @@ body,
 #bubble.visible {
 	visibility: visible;
 }
+
+#twitter {
+	position: absolute;
+	left: 10px;
+	bottom: 0;
+	width: 400px;
+}
+
+#twitter .content {
+	position: relative;
+}

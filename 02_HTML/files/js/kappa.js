@@ -41,6 +41,8 @@ var EFFECTS = ['bounce', 'flash', 'rubberBand', 'shake', 'swing', 'tada', 'wobbl
 
 var COLORS = ['#3fb1e6','#407b96','#1d2837'];
 
+var $twitter = $('#twitter').find('.content');
+
 $(window).keydown(function(e){
 console.log(e.keyCode);
 	if(KEYCODE[e.keyCode] !== undefined && !isTalking){
@@ -57,6 +59,11 @@ console.log(type);
 	if(e.keyCode === 75){
 		change();
 	}
+
+	if(e.keyCode === 83){
+		toggleTwitter();
+	}
+
 });
 
 function talk(e, level, type){
@@ -77,6 +84,25 @@ function bubble(e, level, type){
 		$('#bubble').removeClass('visible');
 		isTalking = false;
 	});
+
+}
+
+function toggleTwitter() {
+
+	if ($twitter.hasClass('hidden')) showTwitter();
+	else hideTwitter();
+
+	function showTwitter() {
+
+		$twitter.stop().removeClass('hidden').animate({ top:0 }, 300);
+
+	}
+
+	function hideTwitter() {
+
+		$twitter.stop().addClass('hidden').animate({ top:$twitter.outerHeight() }, 300);
+		
+	}
 
 }
 
