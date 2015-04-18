@@ -1,5 +1,6 @@
 var AUDIO_PATH = 'files/sounds/';
 var isTalking = false;
+var timeoutID;
 var KEYCODE = {
 	49: {
 		'level': 1,
@@ -40,7 +41,7 @@ var EFFECTS = ['bounce', 'flash', 'rubberBand', 'shake', 'swing', 'tada', 'wobbl
 
 $(window).keydown(function(e){
 console.log(e.keyCode);
-	if(KEYCODE[e.keyCode] !== undefined){
+	if(KEYCODE[e.keyCode] !== undefined && !isTalking){
 		var random = Math.random();
 		var level =  KEYCODE[e.keyCode].level;
 		var type = ( Math.floor(random * KEYCODE[e.keyCode].word.length) + 1 );
@@ -50,6 +51,10 @@ console.log(type);
 		bubble(e, level, type);
 	}
 	move(e);
+
+	if(e.keyCode === 75){
+		change();
+	}
 });
 
 function talk(e, level, type){
@@ -64,10 +69,12 @@ function talk(e, level, type){
 function bubble(e, level, type){
 	$('#bubble').addClass('visible');
 	$('#bubble').text(KEYCODE[e.keyCode].word[Number(type - 1)]);
-	$('#bubble').delay(5000).queue(function(next) {
-    	$(this).removeClass('visible');
-    	next();
-	});
+
+	clearTimeout(timeoutID);
+	timeoutID = setTimeout( function(){
+		$('#bubble').removeClass('visible');
+		isTalking = false;
+	} ,5000 );
 }
 
 function move(e){
