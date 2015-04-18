@@ -37,7 +37,9 @@ var KEYCODE = {
 }
 var EFFECTS = ['bounce', 'flash', 'rubberBand', 'shake', 'swing', 'tada', 'wobble'
 				, 'lightSpeedIn', 'rotateIn', 'zoomIn', 'zoomOut', 'flip'
-				, 'hinge', 'rollIn', 'rollOut']
+				, 'hinge', 'rollIn', 'rollOut'];
+
+var COLORS = ['#3fb1e6','#407b96','#1d2837'];
 
 $(window).keydown(function(e){
 console.log(e.keyCode);
@@ -64,17 +66,18 @@ function talk(e, level, type){
 	}
 	audioStart(AUDIO_PATH + level + '-' + type + '.m4a');
 	isTalking = true;
+	$('#all').stop().animate({ backgroundColor:COLORS[level - 1] }, 1000);
 }
 
 function bubble(e, level, type){
 	$('#bubble').addClass('visible');
 	$('#bubble').text(KEYCODE[e.keyCode].word[Number(type - 1)]);
 
-	clearTimeout(timeoutID);
-	timeoutID = setTimeout( function(){
+	audio.addEventListener('ended',function() {
 		$('#bubble').removeClass('visible');
 		isTalking = false;
-	} ,5000 );
+	});
+
 }
 
 function move(e){
