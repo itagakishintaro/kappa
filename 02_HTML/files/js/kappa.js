@@ -34,6 +34,9 @@ var KEYCODE = {
 		]
 	}
 }
+var EFFECTS = ['bounce', 'flash', 'rubberBand', 'shake', 'swing', 'tada', 'wobble'
+				, 'lightSpeedIn', 'rotateIn', 'zoomIn', 'zoomOut', 'flip'
+				, 'hinge', 'rollIn', 'rollOut']
 
 $(window).keydown(function(e){
 console.log(e.keyCode);
@@ -43,10 +46,10 @@ console.log(e.keyCode);
 		var type = ( Math.floor(random * KEYCODE[e.keyCode].word.length) + 1 );
 console.log(type);
 		talk(e, level, type);
-		move(e);
 		$('#bubble').removeClass('visible');
 		bubble(e, level, type);
 	}
+	move(e);
 });
 
 function talk(e, level, type){
@@ -68,9 +71,11 @@ function bubble(e, level, type){
 }
 
 function move(e){
-	if(e.keyCode === 49){
-		$('img').addClass('animated flip').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
-    	    $(this).removeClass('animated flip');
+	if(e.keyCode === 77){ // key m
+		var effect = EFFECTS[ Math.floor(Math.random() * EFFECTS.length) ]
+console.log(effect);
+		$('img').addClass('animated ' + effect).one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function() {
+    	    $(this).removeClass('animated ' + effect);
     	});
     }
 }
