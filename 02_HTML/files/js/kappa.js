@@ -1,6 +1,6 @@
 var AUDIO_LIST = [];
-AUDIO_LIST[75] = 'sounds/alert.mp3';
-AUDIO_LIST[76] = 'sounds/bgm.mp3';
+AUDIO_LIST[75] = 'files/sounds/alert.mp3';
+AUDIO_LIST[76] = 'files/sounds/bgm.mp3';
 var talking = false;
 
 talk();
